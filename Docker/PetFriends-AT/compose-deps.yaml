@@ -1,0 +1,33 @@
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: PetFriends
+    ports:
+      - '3306:3306'
+    restart: always
+    networks:
+      - petFriends
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: tauber
+      RABBITMQ_DEFAULT_PASS: secret
+    networks:
+      - petFriends
+
+  zipkin:
+    image: openzipkin/zipkin:latest
+    ports:
+      - '9411:9411'
+    networks:
+      - petFriends
+
+networks:
+  petFriends:
+    driver: bridge

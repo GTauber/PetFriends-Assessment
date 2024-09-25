@@ -1,0 +1,17 @@
+spring:
+  rabbitmq:
+    host: rabbitmq
+
+  datasource:
+    url: jdbc:mysql://mysql:3306/PetFriends
+    username: root
+    password: secret
+
+  flyway:
+    url: jdbc:mysql://mysql:3306/PetFriends
+    user: root
+    password: secret
+
+  docker:
+    compose:
+      enabled: false

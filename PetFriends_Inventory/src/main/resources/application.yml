@@ -1,0 +1,50 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: PetFriendsAT
+  profiles:
+    default: local
+    active: local
+  docker:
+    compose:
+      file: Docker/PetFriends-AT/compose-deps.yaml
+      lifecycle-management: start_only
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: tauber
+    password: secret
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/PetFriends
+    username: root
+    password: secret
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  flyway:
+    user: root
+    password: secret
+    url: jdbc:mysql://localhost:3306/PetFriends
+    locations: Database/migrations
+
+  jpa:
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

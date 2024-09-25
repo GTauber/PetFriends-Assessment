@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: PetFriendsOrders
+  profiles:
+    default: local
+    active: local
+  docker:
+    compose:
+      file: Docker/PetFriends-AT/compose-deps.yaml
+      lifecycle-management: start_only
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: tauber
+    password: secret
+
+  flyway:
+    user: root
+    password: secret
+    url: jdbc:mysql://localhost:3306/PetFriends
+    locations: Database/migrations
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
